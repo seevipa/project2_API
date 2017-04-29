@@ -1,0 +1,92 @@
+<!doctype html>
+<!-- Website template by freewebsitetemplates.com -->
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>showdata</title>
+	<link rel="stylesheet" href="css/style.css" type="text/css">
+	<link rel="stylesheet" type="text/css" href="css/mobile.css">
+	<script src="js/mobile.js" type="text/javascript"></script>
+</head>
+<body>
+    <div id="page">
+      <div id="header">
+        <div id="navigation">
+          <span id="mobile-navigation">&nbsp;</span>
+          <a href="index.html" class="logo"><img src="images/logo.png" alt=""></a>
+          <ul id="menu">
+            <li>
+              <a href="login.html">Log out</a>
+        </div>
+      </div>
+      <br></br>
+     <div class="container">
+      <h1>User Information</h1>
+      <form class="" action="#" method="post">
+        <div class="form-group">
+          <label for="uname" >Username</label>
+          <p class="form-control-static" id="uname" placeholder=""></p>
+        </div>
+        <hr>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <p class="form-control-static" id="password" placeholder=""></p>
+        </div>
+        <hr>
+        <div class="form-group">
+          <label for="fname">First name</label>
+          <p class="form-control-static" id="fname" placeholder=""></p>
+        </div>
+        <hr>
+        <div class="form-group">
+          <label for="lname">Last name</label>
+          <p class="form-control-static" id="lname" placeholder=""></p>
+        </div>
+        <hr>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <p class="form-control-static" id="email" placeholder=""></p>
+        </div>
+        <hr>
+        <div class="form-group">
+          <label for="tele">Telephone</label>
+          <p class="form-control-static" id="tele" placeholder=""></p>
+        </div>
+        <button type="button" id="edit" name="button" class="btn btn-primary col-sm-offset-10">Edit</button>
+      </form>
+
+
+     </div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        //Function for extract parameters from querystring
+        $.urlParam = function(name){
+            var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+            return results[1] || 0;
+        }
+        $(function(){
+            //Get user Id from querystring parameters
+            var id = $.urlParam('id');
+            //Create a Web Api url for getting a member info
+            var url = "http://membershipwebapi977290.azurewebsites.net/api/Members/" + id;
+            console.log(url);
+            $.get(url, function(data, status) {
+                console.log(data);
+                $('#uname').html(data.UserName);
+                $('#password').html(data.Password);
+                $('#fname').html(data.FirstName);
+                $('#lname').html(data.LastName);
+                $('#email').html(data.Email);
+                $('#tele').html(data.Tel);
+                //If user click edit, go to edituser page
+                $("#edit").click(function () {
+                    window.location.href = "editUserinfo.html?id=" + data.Id;
+                });
+            });
+        });
+    </script>
